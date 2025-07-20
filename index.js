@@ -64,7 +64,7 @@ client.on(Events.InteractionCreate, async interaction => {
   const nome = interaction.fields.getTextInputValue('nome');
   const id = interaction.fields.getTextInputValue('id');
 
-  const nick = `[ GCM ] ${nome} [ ${id} ]`;
+  const nick = `「 GCM 」${nome}「${id}」`;
 
   try {
     const CIVIL_ID = '1393991738665996469';
