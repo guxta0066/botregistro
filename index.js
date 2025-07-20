@@ -61,28 +61,28 @@ client.on(Events.InteractionCreate, async interaction => {
   }
 
   if (interaction.isModalSubmit() && interaction.customId === 'formulario_gcm') {
-    const nome = interaction.fields.getTextInputValue('nome');
-    const id = interaction.fields.getTextInputValue('id');
+  const nome = interaction.fields.getTextInputValue('nome');
+  const id = interaction.fields.getTextInputValue('id');
 
-    const nick = `[ GCM ] ${nome} [ ${id} ]`;
+  const nick = `[ GCM ] ${nome} [ ${id} ]`;
 
-    try {
-      // IDs dos cargos que serão removidos
-      const CIVIL_ID = '1393991738665996469';
-      const APROVADO_REC_ID = '1394058344184152084';
+  try {
+    const CIVIL_ID = '1393991738665996469';
+    const APROVADO_REC_ID = '1394058344184152084';
 
-      // Remove os cargos Civil e Aprovado em Rec
-      await interaction.member.roles.remove([CIVIL_ID, APROVADO_REC_ID]);
+    await interaction.member.roles.remove([CIVIL_ID, APROVADO_REC_ID]);
+    await interaction.member.roles.add(CARGO_ID);
 
-      // Adiciona o cargo GCM
-      await interaction.member.roles.add(CARGO_ID);
+    // Aqui está a linha que faltava
+    await interaction.member.setNickname(nick);
 
-      await interaction.reply({ content: `✅ Registro concluído!\nApelido alterado para **${nick}** e cargo atribuído.`, ephemeral: true });
-    } catch (err) {
-      console.error(err);
-      await interaction.reply({ content: '❌ Erro ao definir nickname ou cargo. Verifique permissões do bot.', ephemeral: true });
-    }
+    await interaction.reply({ content: `✅ Registro concluído!\nApelido alterado para **${nick}** e cargo atribuído.`, ephemeral: true });
+  } catch (err) {
+    console.error(err);
+    await interaction.reply({ content: '❌ Erro ao definir nickname ou cargo. Verifique permissões do bot.', ephemeral: true });
   }
+}
+
 });
 
 client.login(TOKEN);
